@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    db:
+        image: mongo:3.4-jessie
+        volumes:
+          - ./.data/db/mongo:/data/db
+        ports:
+          - ${DB_PORT}:27017
+    php:
+        build:
+            context: php7-fpm
+            args:
+                TIMEZONE: ${TIMEZONE}
+                HOST_USER: ${HOST_USER}
+                HOST_USER_ID: ${HOST_USER_ID}
+                HOST_GROUP: ${HOST_GROUP}
+                HOST_GROUP_ID: ${HOST_GROUP_ID}
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/app/logs
+        ports:
+          - 80:80

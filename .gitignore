@@ -1,0 +1,4 @@
+symfony/
+logs/
+.data/
+.env
